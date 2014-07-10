@@ -1,0 +1,21 @@
+{
+    "name": "ck99/kurses",
+    "description": "ncurses shizit",
+    "authors": [
+        {
+            "name": "Ciaran Kelly",
+            "email": "ciaran.kelly@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "require-dev": {
+        "phpspec/phpspec": "2.1.*@dev"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kurses\\": "src/"
+        }
+    }
+}
