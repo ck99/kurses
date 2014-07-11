@@ -27,8 +27,9 @@ class TabsManager {
     {
         $this->window = $window;
         ncurses_getmaxyx($this->window, $y, $x);
-        $this->rows = $y;
+        $this->rows = $y-1;
         $this->cols = $x;
+        $this->tabs = [];
     }
 
     public function onKeyboardEvent(KeyboardEvent $event)
@@ -53,7 +54,10 @@ class TabsManager {
             return;
         }
 
-        if($event->keycode == XC)
+        if($event->keycode == 9) {
+            $this->active++;
+            $this->active = $this->active % count($this->tabs);
+        }
 
         $this->tabs[$this->active]->onKeyboardEvent($event);
 

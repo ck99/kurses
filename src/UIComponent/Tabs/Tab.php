@@ -38,7 +38,7 @@ class Tab {
 
     public function onKeyboardEvent(KeyboardEvent $event)
     {
-        $this->panel->addLine("KeyPress: ".$event->keycode);
+//        $this->panel->addLine("KeyPress: ".$event->keycode);
     }
 
     public function hasAlert()

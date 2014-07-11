@@ -25,9 +25,12 @@ class Screen {
 
     protected $manager;
 
+    private $statusBarNotices;
+
     public function __construct()
     {
         $this->tabPanels = [];
+        $this->statusBarNotices = [];
         $this->tabHeadingLength = 0;
         $this->getPanel();
 
@@ -41,6 +44,12 @@ class Screen {
 
     public function beforeRefresh()
     {
+        $notices = [];
+        foreach($this->statusBarNotices as $notifier) {
+            $notices[] = call_user_func($notifier);
+        }
+        $noticeBar = implode(', ', $notices);
+        ncurses_mvwaddstr($this->window, $this->rows-1, 2, $noticeBar);
         $this->manager->draw();
     }
 
@@ -73,5 +82,10 @@ class Screen {
     public function setWindow(Window $window)
     {
         $this->window = $window->getWindow();
+    }
+
+    public function addStatusBarNotifier(callable $notifier)
+    {
+        $this->statusBarNotices[] = $notifier;
     }
 } 

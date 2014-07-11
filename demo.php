@@ -6,10 +6,13 @@ $app  = new \Kurses\Application();
 $eventLoop = $app->getEventLoop();
 $screen = $app->getScreen();
 $tabsManager = $screen->getManager();
-
 $tab1 = $tabsManager->addTab('Tab One');
 $tab2 = $tabsManager->addTab('Tab Two');
 
+$memUsage = function() {
+    return "Memory: ".memory_get_usage();
+};
+$screen->addStatusBarNotifier($memUsage);
 
 $eventLoop->every(function()use($tab1) {
         $tab1->panel->addLine(sprintf("[%03d] %s",mt_rand(0,100),time()));
