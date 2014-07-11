@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "54d216d07ba601534ddb58cfdb71b03b",
+    "hash": "241bcf4e0ac02ea083203ab3530f21de",
     "packages": [
         {
             "name": "rdlowrey/after",
@@ -50,16 +50,16 @@
         },
         {
             "name": "rdlowrey/alert",
-            "version": "dev-master",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/rdlowrey/alert.git",
-                "reference": "bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7"
+                "reference": "a09cc62f81d8950e05e6c715668be3cb2a07d716"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/rdlowrey/alert/zipball/bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7",
-                "reference": "bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7",
+                "url": "https://api.github.com/repos/rdlowrey/alert/zipball/a09cc62f81d8950e05e6c715668be3cb2a07d716",
+                "reference": "a09cc62f81d8950e05e6c715668be3cb2a07d716",
                 "shasum": ""
             },
             "require": {
@@ -90,7 +90,7 @@
                 "libevent",
                 "non-blocking"
             ],
-            "time": "2014-06-12 14:52:37"
+            "time": "2014-06-11 14:09:10"
         }
     ],
     "packages-dev": [
@@ -477,7 +477,6 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "rdlowrey/alert": 20,
         "rdlowrey/after": 20,
         "phpspec/phpspec": 20
     },
