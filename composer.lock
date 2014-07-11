@@ -3,9 +3,95 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "746524278b69c271d6ec15a8d958e104",
+    "hash": "54d216d07ba601534ddb58cfdb71b03b",
     "packages": [
-
+        {
+            "name": "rdlowrey/after",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/After.git",
+                "reference": "eac7edaf0f96f766bfe7d56c83c527b99806790a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/After/zipball/eac7edaf0f96f766bfe7d56c83c527b99806790a",
+                "reference": "eac7edaf0f96f766bfe7d56c83c527b99806790a",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@php.net",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Simple PHP concurrency primitives",
+            "homepage": "https://github.com/rdlowrey/after",
+            "keywords": [
+                "async",
+                "future",
+                "promise"
+            ],
+            "time": "2014-04-27 19:37:03"
+        },
+        {
+            "name": "rdlowrey/alert",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rdlowrey/alert.git",
+                "reference": "bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rdlowrey/alert/zipball/bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7",
+                "reference": "bf6736c9b3202e2735ca85a250ddd6ed5e49cfb7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "files": [
+                    "src/bootstrap.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Daniel Lowrey",
+                    "email": "rdlowrey@php.net",
+                    "role": "Creator / Lead Developer"
+                }
+            ],
+            "description": "Event loops for event-driven/async PHP",
+            "homepage": "https://github.com/rdlowrey/alert",
+            "keywords": [
+                "async",
+                "events",
+                "libevent",
+                "non-blocking"
+            ],
+            "time": "2014-06-12 14:52:37"
+        }
     ],
     "packages-dev": [
         {
@@ -391,6 +477,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
+        "rdlowrey/alert": 20,
+        "rdlowrey/after": 20,
         "phpspec/phpspec": 20
     },
     "platform": [

@@ -8,6 +8,9 @@
 
 namespace Kurses;
 
+use Kurses\InputHandler\Keyboard;
+use Kurses\InputHandler\Mouse;
+
 class Screen
 {
     /** @var array|Panel[]  */
@@ -15,8 +18,12 @@ class Screen
 
     public $cursor;
 
-    public function __construct()
+    /** @var \Kurses\EventLoop  */
+    private $loop;
+
+    public function __construct(EventLoop $loop)
     {
+        $this->loop = $loop;
         ncurses_init();
         ncurses_cbreak();
         ncurses_noecho();
@@ -25,7 +32,20 @@ class Screen
             ncurses_start_color();
         }
 
-        $this->cursor = new Cursor(null, null, false);
+        $this->cursor   = new Cursor(null, null, false);
+
+
+        $this->loop->every([$this, 'refresh'], 200);
+        stream_set_blocking(STDIN, FALSE);
+        $this->loop->attachStreamHandler(STDIN, [$this, 'handleStdIn']);
+
+
+    }
+
+    public function handleStdIn()
+    {
+        $k = ncurses_getch();
+        $this->panels[0]->setTitle("KeyPressed: ".$k);
     }
 
     public function addPanel($options = [])
@@ -60,6 +80,11 @@ class Screen
         return $panel;
     }
 
+    /**
+     * @param Panel $panel
+     * @param array $panelRatios
+     * @return Panel[]
+     */
     public function vSplitPanel(Panel $panel, $panelRatios = [1,1])
     {
         $newPanels = $panel->vSplit($panelRatios);
@@ -70,6 +95,11 @@ class Screen
         return $newPanels;
     }
 
+    /**
+     * @param Panel $panel
+     * @param array $panelRatios
+     * @return Panel[]
+     */
     public function hSplitPanel(Panel $panel, $panelRatios = [1,1])
     {
         $newPanels = $panel->hSplit($panelRatios);
@@ -92,6 +122,23 @@ class Screen
         }
         ncurses_update_panels();
         ncurses_doupdate();
+    }
+
+    public function replacePanelWithType($panel, $type)
+    {
+        $i = -1;
+        foreach($this->panels as $index => $livePanel) {
+            if($livePanel === $panel) {
+                $i = $index;
+                break;
+            }
+        }
+
+        $replaceThis = $this->panels[$i];
+        $newPanel = new $type($replaceThis->rows, $replaceThis->cols, $replaceThis->y, $replaceThis->x);
+        unset($this->panels[$i]);
+        $this->panels[] = $newPanel;
+        return $newPanel;
     }
 
     public function __destruct()

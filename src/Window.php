@@ -11,14 +11,12 @@ class Window
 {
     protected  $window = null;
 
-    const BORDER_STYLE_SOLID    = 1; // ┐
-    const BORDER_STYLE_DOUBLE   = 2; // ╗
-    const BORDER_STYLE_BLOCK    = 3; // ■
-
     public $rows;
     public $cols;
     public $x;
     public $y;
+
+    public $maxLines;
 
     /**
      * Create window
@@ -32,10 +30,12 @@ class Window
     public function __construct($rows = 0, $cols = 0, $y = 0, $x = 0)
     {
         $this->window = ncurses_newwin($rows, $cols, $y, $x);
-        $this->cols = $cols;
-        $this->rows = $rows;
+        $this->cols = $this->getMaxX();
+        $this->rows = $this->getMaxY();
         $this->x = $x;
         $this->y = $y;
+
+        $this->maxLines = (($this->getMaxY() - $y)-2);
     }
 
     public function getWindow()
@@ -69,19 +69,6 @@ class Window
             $tl_corner, $tr_corner, $bl_corner, $br_corner);
     }
 
-    public function borderStyle($style)
-    {
-        if ($style == self::BORDER_STYLE_SOLID)
-        {
-            $this->border();
-        }
-        elseif($style == self::BORDER_STYLE_DOUBLE)
-        {
-            $this->border(226, 186, 205, 205, 201, 187, 200, 188);
-//            $this->border(ord('║'), ord('║'), ord('═'), ord('═'), ord('╔'), ord('╗'), ord('╚'), ord('╝'));
-        }
-    }
-
     /**
      * Refresh (redraw) window
      */
@@ -92,7 +79,10 @@ class Window
 
     public function setTitle($title)
     {
+        $this->border();
+        ncurses_wattron($this->getWindow(), NCURSES_A_REVERSE);
         ncurses_mvwaddstr($this->window, 0, 2, $title);
+        ncurses_wattroff($this->getWindow(), NCURSES_A_REVERSE);
     }
 
     public function addText($text)
@@ -100,8 +90,17 @@ class Window
         if(!is_array($text)) {
             $text = [$text];
         }
+
+        $maxLength = array_reduce($text, function($v1,$v2){return max(strlen($v1), strlen($v2));}, 0);
         for ($j=0; $j<count($text); $j++) {
-            ncurses_mvwaddstr($this->window, 2+$j, 2, $text[$j]);
+            ncurses_mvwaddstr($this->window, 2+$j, 2, str_pad($text[$j], $maxLength, ' '));
+        }
+    }
+
+    public function clear()
+    {
+        for ($j=0; $j<$this->rows; $j++) {
+            ncurses_mvwaddstr($this->window, $j, 0, str_repeat(' ', $this->cols));
         }
     }
 }

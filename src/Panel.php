@@ -79,6 +79,15 @@ class Panel extends Window {
         return $panels;
     }
 
+    public function refresh()
+    {
+        return;
+    }
+
+//    public function clear()
+//    {
+//        $this->addText(['']);
+//    }
 
 //    public function __construct(Window $window)
 //    {
