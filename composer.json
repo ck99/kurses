@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "rdlowrey/alert": "dev-master",
+        "rdlowrey/alert": "~0.8.1",
         "rdlowrey/after": "dev-master"
     },
     "require-dev": {
