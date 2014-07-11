@@ -1,0 +1,4 @@
+suites:
+  main:
+    namespace: Kurses
+    psr4_prefix: Kurses
