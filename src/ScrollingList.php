@@ -21,14 +21,17 @@ class ScrollingList extends Panel {
     }
 
     public function addLine($line) {
+        $line = substr(chunk_split($line, $this->cols, "\r\n"), 0, -2);
+        $chunks = explode("\r\n", $line);
+        foreach($chunks as $chunk) {
+            $this->lines[] = $chunk;
+        }
         $this->scrollIfNecessary();
-
-        $this->lines[] = $line;
     }
 
     protected function scrollIfNecessary()
     {
-        if(
+        while(
             (count($this->lines) == ($this->getMaxY()-2)) ||
             ($this->maxLines > 0 && count($this->lines) == $this->maxLines)
         ) {
