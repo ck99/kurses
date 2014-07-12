@@ -21,9 +21,12 @@ class ScrollingList extends Panel {
     }
 
     public function addLine($line) {
-        $line = substr(chunk_split($line, $this->cols, "\r\n"), 0, -2);
+        $line = substr(chunk_split($line, $this->cols-6, "\r\n"), 0, -2);
         $chunks = explode("\r\n", $line);
-        foreach($chunks as $chunk) {
+        foreach($chunks as $i => $chunk) {
+            if($i > 0) {
+                $chunk = "  >>".$chunk;
+            }
             $this->lines[] = $chunk;
         }
         $this->scrollIfNecessary();
