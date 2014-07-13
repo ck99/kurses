@@ -49,6 +49,7 @@ class Screen {
             $notices[] = call_user_func($notifier);
         }
         $noticeBar = implode(', ', $notices);
+        ncurses_mvwaddstr($this->window, $this->rows-1, 2, str_repeat(' ', $this->cols));
         ncurses_mvwaddstr($this->window, $this->rows-1, 2, $noticeBar);
         $this->manager->draw();
     }
