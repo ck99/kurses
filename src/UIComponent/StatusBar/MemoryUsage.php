@@ -13,7 +13,7 @@ use Kurses\UIComponent\StatusBarMessage;
 class MemoryUsage implements StatusBarMessage{
     public function getStatusMessage()
     {
-        return sprintf('M:%s', $this->getFormattedMemoryUsage());
+        return sprintf('M:%s', str_pad($this->getFormattedMemoryUsage(), 10, ' ', STR_PAD_LEFT));
     }
 
     /**

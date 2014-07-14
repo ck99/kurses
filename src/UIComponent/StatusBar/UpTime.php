@@ -52,7 +52,7 @@ class UpTime implements StatusBarMessage{
             'minutes' => 0,
             'seconds' => 0,
         ];
-        
+
         /*** get the weeks ***/
         $ret['weeks'] = (intval($seconds) / (60*60*24*7));
 
