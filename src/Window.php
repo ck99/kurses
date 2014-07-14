@@ -91,9 +91,8 @@ class Window
             $text = [$text];
         }
 
-        $maxLength = array_reduce($text, function($v1,$v2){return max(strlen($v1), strlen($v2));}, 0);
         for ($j=0; $j<count($text); $j++) {
-            ncurses_mvwaddstr($this->window, 2+$j, 2, str_pad($text[$j], $maxLength, ' '));
+            ncurses_mvwaddstr($this->window, 2+$j, 2, str_pad($text[$j], ($this->cols-3), ' '));
         }
     }
 
