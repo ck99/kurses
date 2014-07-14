@@ -46,7 +46,11 @@ class Screen {
     {
         $notices = [];
         foreach($this->statusBarNotices as $notifier) {
-            $notices[] = call_user_func($notifier);
+            if($notifier instanceof StatusBarMessage) {
+                $notices[] = $notifier->getStatusMessage();
+            } elseif(is_callable($notifier)) {
+                $notices[] = call_user_func($notifier);
+            }
         }
         $noticeBar = implode(', ', $notices);
         ncurses_mvwaddstr($this->window, $this->rows-1, 2, str_repeat(' ', $this->cols));
@@ -85,7 +89,7 @@ class Screen {
         $this->window = $window->getWindow();
     }
 
-    public function addStatusBarNotifier(callable $notifier)
+    public function addStatusBarNotifier($notifier)
     {
         $this->statusBarNotices[] = $notifier;
     }
