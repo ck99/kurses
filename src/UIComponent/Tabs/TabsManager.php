@@ -90,7 +90,12 @@ class TabsManager {
 
     public function addTab($name)
     {
-        $tab = new \Kurses\UIComponent\Tabs\Tab($name);
+        if($name instanceof Tab) {
+            $tab = $name;
+        }
+        else {
+            $tab = new Tab($name);
+        }
         $this->createTabWindow($tab);
         return $tab;
     }
