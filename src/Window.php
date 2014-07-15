@@ -7,6 +7,8 @@
  */
 namespace Kurses;
 
+use Kurses\Formatter\NcursesOutputFormatter;
+
 class Window
 {
     protected  $window = null;
@@ -17,6 +19,11 @@ class Window
     public $y;
 
     public $maxLines;
+    const START_ROW = 2;
+    const START_COL = 2;
+
+    /** @var NcursesOutputFormatter  */
+    protected $formatter = null;
 
     /**
      * Create window
@@ -92,7 +99,7 @@ class Window
         }
 
         for ($j=0; $j<count($text); $j++) {
-            ncurses_mvwaddstr($this->window, 2+$j, 2, str_pad($text[$j], ($this->cols-3), ' '));
+            $this->writeLineToScreen($j, $text);
         }
     }
 
@@ -101,5 +108,30 @@ class Window
         for ($j=0; $j<$this->rows; $j++) {
             ncurses_mvwaddstr($this->window, $j, 0, str_repeat(' ', $this->cols));
         }
+    }
+
+    /**
+     * @param $row
+     * @param $text
+     */
+    public function writeLineToScreen($row, $text)
+    {
+        if($this->formatter) {
+            $this->writeFormattedLineToScreen($row, $text);
+        }
+        else {
+            ncurses_mvwaddstr($this->window, self::START_ROW + $row, self::START_COL, str_pad($text[$row], ($this->cols - 3), ' '));
+        }
+    }
+
+    public function writeFormattedLineToScreen($row, $text)
+    {
+//        $this->formatter->writeFormattedLine($row, self::START_COL, $text);
+        $this->formatter->writeFormattedLine($this->window, $row, self::START_COL, $text);
+    }
+
+    public function setFormatter($formatter)
+    {
+        $this->formatter = $formatter;
     }
 }

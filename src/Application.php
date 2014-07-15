@@ -29,6 +29,11 @@ class Application {
     /** @var Mouse  */
     private $mouse;
 
+    const COL_RED_ON_BLACK    = 1;
+    const COL_GREEN_ON_BLACK  = 2;
+    const COL_YELLOW_ON_BLACK = 3;
+    const COL_BLUE_ON_BLACK   = 4;
+
     public function __construct(EventLoop $loop = null)
     {
         if($loop === null) {
@@ -41,7 +46,10 @@ class Application {
         $this->panels = [];
         if (ncurses_has_colors()) {
             ncurses_start_color();
-            ncurses_init_pair(1, NCURSES_COLOR_RED, NCURSES_COLOR_BLACK);
+            ncurses_init_pair(self::COL_RED_ON_BLACK, NCURSES_COLOR_RED, NCURSES_COLOR_BLACK);
+            ncurses_init_pair(self::COL_GREEN_ON_BLACK, NCURSES_COLOR_GREEN, NCURSES_COLOR_BLACK);
+            ncurses_init_pair(self::COL_YELLOW_ON_BLACK, NCURSES_COLOR_YELLOW, NCURSES_COLOR_BLACK);
+            ncurses_init_pair(self::COL_BLUE_ON_BLACK, NCURSES_COLOR_BLUE, NCURSES_COLOR_BLACK);
         }
 
         $this->cursor   = new Cursor(null, null, false);
@@ -109,6 +117,6 @@ class Application {
 
     public function __destruct()
     {
-        ncurses_end();
+//        ncurses_end();
     }
 } 
