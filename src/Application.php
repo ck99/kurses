@@ -2,7 +2,8 @@
 /**
  * Application.php
  * @author ciaran
- * @date 11/07/14 11:09
+ * @author Fabian 'zetaron' Stegemann
+ * @date 31.10.2014 19:31
  *
  */
 
@@ -15,24 +16,32 @@ use Kurses\InputHandler\Mouse;
 use Kurses\UIComponent\Screen;
 
 class Application {
-    /** @var Screen  */
+    /**
+     * @var Screen
+     */
     protected $screen;
 
     public $cursor;
 
-    /** @var EventLoop  */
+    /**
+     * @var EventLoop
+     */
     private $loop;
 
-    /** @var Keyboard  */
+    /**
+     * @var Keyboard
+     */
     private $keyboard;
 
-    /** @var Mouse  */
+    /**
+     * @var Mouse
+     */
     private $mouse;
 
     public function __construct(EventLoop $loop = null)
     {
         if($loop === null) {
-            $loop = (new \Kurses\EventLoopFactory())->select();
+            $loop = \Kurses\EventLoopFactory::select();
         }
         $this->loop = $loop;
         ncurses_init();
@@ -70,6 +79,9 @@ class Application {
             });
     }
 
+    /**
+     * @return EventLoop
+     */
     public function getEventLoop()
     {
         return $this->loop;
@@ -111,4 +123,4 @@ class Application {
     {
         ncurses_end();
     }
-} 
+}

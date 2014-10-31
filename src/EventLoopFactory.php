@@ -2,33 +2,34 @@
 /**
  * EventLoopFactory.php
  * @author ciaran
- * @date 11/07/14 23:21
- *
+ * @author Fabian 'zetaron' Stegemann
+ * @date 31.10.2014 19:16
  */
 
 namespace Kurses;
 
-
 class EventLoopFactory {
-    private $hasAlertReactor;
-
-    public function __construct() {
-        $this->hasAlertReactor = class_exists('Alert\ReactorFactory');
-    }
-
-    public function __invoke() {
-        return $this->select();
+    /**
+     * @var boolean
+     */
+    public static function hasAmpReactor() {
+      return class_exists('Amp\ReactorFactory');
     }
 
     /**
      * @return \Kurses\EventLoop
      */
-    public function select() {
-        if ($this->hasAlertReactor) {
-            $reactor = (new \Alert\ReactorFactory())->select();
-            $adapter = (new \Kurses\Adapter\AlertAdapter($reactor));
+    public static function select() {
+        /**
+         * @var \Kurses\EventLoop
+         */
+        $adapter = null;
+
+        if ( self::hasAmpReactor() ) {
+          $reactor = \Amp\ReactorFactory::select();
+          $adapter = new Adapter\AmpAdapter($reactor);
         }
 
         return $adapter;
     }
-} 
+}
