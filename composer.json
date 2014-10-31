@@ -1,15 +1,18 @@
 {
     "name": "ck99/kurses",
-    "description": "ncurses shizit",
+    "description": "ncurses application classes",
     "authors": [
         {
             "name": "Ciaran Kelly",
             "email": "ciaran.kelly@gmail.com"
+        },
+        {
+          "name": "Fabian Stegemann",
+          "email": "fst@zetaron.de"
         }
     ],
     "require": {
-        "rdlowrey/alert": "~0.8.1",
-        "rdlowrey/after": "dev-master"
+        "amphp/amp": "1.0.*@dev"
     },
     "require-dev": {
         "phpspec/phpspec": "2.1.*@dev"

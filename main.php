@@ -2,14 +2,16 @@
 /**
  * main.php
  * @author ciaran
- * @date 10/07/14 18:46
- *
+ * @author Fabian 'zetaron' Stegemann
+ * @date 31.10.2014 19:16
  */
 
 require_once './vendor/autoload.php';
 
-
-$eventLoop = new \Kurses\Adapter\AlertAdapter((new \Alert\ReactorFactory())->select());
+/**
+ * @var \Kurses\EventLoop
+ */
+$eventLoop = \Kurses\EventLoopFactory::select();
 
 $screen  = new \Kurses\Screen($eventLoop);
 $main    = $screen->addPanel([]);
@@ -77,6 +79,3 @@ $eventLoop->start();
 //$window2->setTitle("hello world");
 //$window2->addText(['hello', 'how are you', 'x: '.$window2->getMaxX(),'y: '.$window2->getMaxY(),]);
 //$window1->addText(['window 1', 'x: '.$window1->getMaxX(),'y: '.$window1->getMaxY(),]);
-
-
-
